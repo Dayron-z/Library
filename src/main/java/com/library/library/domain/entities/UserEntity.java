@@ -5,6 +5,7 @@ import jdk.jfr.BooleanFlag;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "user")
@@ -23,5 +24,5 @@ public class UserEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false, mappedBy = "user")
-    private List<Loan> loans;
+    private List<Loan> loans = new ArrayList<>();
 }

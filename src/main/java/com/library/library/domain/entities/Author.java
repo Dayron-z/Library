@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "author")
@@ -23,5 +24,5 @@ public class Author {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false, mappedBy = "author")
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 }

@@ -20,7 +20,7 @@ public class Book {
     @Column(nullable = false)
     private LocalDate publication_date;
     @Column(nullable = false)
-    private Boolean status;
+    private Boolean status = false;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
