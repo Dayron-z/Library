@@ -75,6 +75,6 @@ public class AuthorService implements IAuthorService {
 
     private Author getById(Long id){
         return this.authorRepository.findById(id)
-                .orElseThrow(()-> new BadRequestException("The user with the specified id was not found"));
+                .orElseThrow(()-> new BadRequestException("The author with the specified id was not found"));
     }
 }

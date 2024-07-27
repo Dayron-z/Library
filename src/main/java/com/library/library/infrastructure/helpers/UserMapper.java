@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface UserHelper {
+public interface UserMapper {
     UserEntity requestToEntity(UserRequest userRequest);
     UserResponse entityToResponse(UserEntity user);
 }

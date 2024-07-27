@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -79,8 +80,8 @@ public class AuthorController {
             @ApiResponse(responseCode = "404", description = "Author not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<AuthorResponse> update(@RequestBody AuthorUpdateRequest request, @PathVariable Long id) {
+    @PatchMapping(path = "/{id}")
+    public ResponseEntity<AuthorResponse> update(@Validated @RequestBody AuthorUpdateRequest request, @PathVariable Long id) {
         return ResponseEntity.ok(this.authorService.update(request, id));
     }
 }
