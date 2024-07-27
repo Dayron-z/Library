@@ -11,6 +11,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+//Anotación útil: Sirve para no incluir campos nulos en respuestas.
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorResponse {
     private int status;
