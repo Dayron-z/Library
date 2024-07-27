@@ -4,7 +4,9 @@ import com.library.library.api.dto.request.used_request.BookRequest;
 import com.library.library.api.dto.response.used_responses.BookResponse;
 import com.library.library.infrastructure.abstract_services.IAuthorService;
 import com.library.library.infrastructure.abstract_services.IBookService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BookService implements IBookService {
     @Override
     public BookResponse create(BookRequest request) {

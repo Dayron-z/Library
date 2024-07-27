@@ -3,7 +3,10 @@ package com.library.library.infrastructure.services;
 import com.library.library.api.dto.request.used_request.AuthorRequest;
 import com.library.library.api.dto.response.used_responses.AuthorResponse;
 import com.library.library.infrastructure.abstract_services.IAuthorService;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class AuthorService implements IAuthorService {
     @Override
     public AuthorResponse create(AuthorRequest request) {
