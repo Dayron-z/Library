@@ -20,6 +20,11 @@ public class BookService implements IBookService {
         return null;
     }
 
+    @Override
+    public BookResponse findById(Long aLong) {
+        return null;
+    }
+
 
     public BookResponse update(BookRequest request, Long aLong) {
         return null;

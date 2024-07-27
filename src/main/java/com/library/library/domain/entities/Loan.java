@@ -22,12 +22,10 @@ public class Loan {
 
 
 
-    @Column(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name =  "book_id" , referencedColumnName = "id")
     private Book book;
 
-    @Column(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name =  "user_id" , referencedColumnName = "id")
     private UserEntity user;
