@@ -83,4 +83,16 @@ public class UserController {
     public ResponseEntity<UserResponse> update(@Validated @RequestBody UserRequest request, @PathVariable Long id) {
         return ResponseEntity.ok(this.userService.update(request, id));
     }
+
+    @Operation(summary = "Delete a user by ID", description = "Delete a user by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully deleted user", content = @Content),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        this.userService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +32,7 @@ public class AuthorController {
     @Operation(summary = "Get all authors", description = "Retrieve a paginated list of authors with optional sorting")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved list of authors",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Page.class))),
+                    content = @Content(mediaType = "application/json")),
             @ApiResponse(responseCode = "400", description = "Invalid request parameters", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
@@ -83,5 +82,17 @@ public class AuthorController {
     @PatchMapping(path = "/{id}")
     public ResponseEntity<AuthorResponse> update(@Validated @RequestBody AuthorUpdateRequest request, @PathVariable Long id) {
         return ResponseEntity.ok(this.authorService.update(request, id));
+    }
+
+    @Operation(summary = "Delete an author by ID", description = "Delete an author by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully deleted author", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Author not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        this.authorService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

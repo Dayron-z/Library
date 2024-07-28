@@ -4,4 +4,5 @@ import com.library.library.api.dto.request.used_request.LoanRequest;
 import com.library.library.api.dto.response.used_responses.LoanResponse;
 
 public interface ILoanService extends CrudService <LoanRequest, LoanResponse, Long> {
+     LoanResponse update(LoanRequest request, Long id);
 }
