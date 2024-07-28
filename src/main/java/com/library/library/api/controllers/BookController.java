@@ -1,5 +1,6 @@
 package com.library.library.api.controllers;
 
+import com.library.library.api.dto.request.custom_request.MultipleBookRequest;
 import com.library.library.api.dto.request.used_request.BookRequest;
 import com.library.library.api.dto.response.used_responses.BookResponse;
 import com.library.library.infrastructure.abstract_services.IBookService;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Tag(name = "Books", description = "Operations related to Books")
@@ -91,5 +93,18 @@ public class BookController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         this.bookService.delete(id);
         return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "Create multiple books", description = "Create multiple books with the provided details")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully created books",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = BookResponse[].class))),
+            @ApiResponse(responseCode = "400", description = "Invalid book details", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
+    @PostMapping("/batch")
+    public ResponseEntity<List<BookResponse>> createBooks(@Validated @RequestBody MultipleBookRequest multipleBookRequest) {
+        List<BookResponse> bookResponses = this.bookService.createBooks(multipleBookRequest);
+        return ResponseEntity.ok(bookResponses);
     }
 }

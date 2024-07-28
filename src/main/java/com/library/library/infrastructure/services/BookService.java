@@ -1,5 +1,6 @@
 package com.library.library.infrastructure.services;
 
+import com.library.library.api.dto.request.custom_request.MultipleBookRequest;
 import com.library.library.api.dto.request.used_request.BookRequest;
 import com.library.library.api.dto.response.used_responses.BookResponse;
 import com.library.library.domain.entities.Author;
@@ -17,6 +18,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -80,6 +85,24 @@ public class BookService implements IBookService {
 
 
         return this.bookMapper.entityToResponse(this.bookRepository.save(book));
+    }
+
+    @Override
+    public List<BookResponse> createBooks(MultipleBookRequest multipleBookRequest) {
+        List<BookRequest> requests = multipleBookRequest.getBookRequestList();
+        List<BookResponse> responses = new ArrayList<>();
+
+        for (BookRequest request : requests) {
+            Author author = this.authorRepository.findById(request.getAuthorId())
+                    .orElseThrow(() -> new BadRequestException("The author with the specified id was not found"));
+
+            Book book = this.bookMapper.requestToEntity(request);
+            book.setAuthor(author);
+            Book savedBook = this.bookRepository.save(book);
+            responses.add(this.bookMapper.entityToResponse(savedBook));
+        }
+
+        return responses;
     }
 
     @Override
