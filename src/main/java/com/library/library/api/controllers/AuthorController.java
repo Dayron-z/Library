@@ -91,8 +91,8 @@ public class AuthorController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         this.authorService.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Successfully deleted");
     }
 }

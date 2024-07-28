@@ -40,6 +40,7 @@ public class LoanService implements ILoanService {
                 .orElseThrow(() -> new BadRequestException("The user with the specified id was not found"));
         Book book = this.bookRepository.findById(request.getBookId())
                 .orElseThrow(() -> new BadRequestException("The book with the specified id was not found"));
+        book.setStatus(true);
 
         Loan loan = this.loanMapper.requestToEntity(request);
         loan.setUser(user);
